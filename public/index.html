@@ -58,9 +58,15 @@
         console.log(`Received location from ${id}: ${latitude}, ${longitude}`);
 
         if (markers[id]) {
-          markers[id].setLatLng([latitude, longitude]);
+          markers[id]
+            .setLatLng([latitude, longitude])
+            .bindPopup(`ID: ${id}`)
+            .openPopup();
         } else {
-          markers[id] = L.marker([latitude, longitude]).addTo(map);
+          markers[id] = L.marker([latitude, longitude])
+            .addTo(map)
+            .bindPopup(`ID: ${id}`)
+            .openPopup();
         }
       });
 
