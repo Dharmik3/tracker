@@ -31,8 +31,8 @@
         navigator.geolocation.watchPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            console.log(`Sending location: ${latitude}, ${longitude}`);
-            socket.emit("send-location", { latitude, longitude });
+            console.log(`Sending location: ${latitude}, ${longitude}, ${name}`);
+            socket.emit("send-location", { latitude, longitude, name });
           },
           (error) => {
             socket.emit("error", { error });
@@ -59,8 +59,10 @@
       const markers = {};
 
       socket.on("receive-location", (data) => {
-        const { latitude, longitude, id } = data;
-        console.log(`Received location from ${id}: ${latitude}, ${longitude}`);
+        const { latitude, longitude, id, name } = data;
+        console.log(
+          `Received location from ${id}: ${latitude}, ${longitude}${name}`
+        );
 
         if (markers[id]) {
           markers[id]
