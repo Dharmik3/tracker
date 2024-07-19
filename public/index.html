@@ -20,6 +20,11 @@
     ></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
+      let name;
+      function nameOfUser() {
+        name = prompt("Please enter your name:", "Harry Potter");
+      }
+      nameOfUser();
       const socket = io();
 
       if (navigator.geolocation) {
@@ -60,12 +65,12 @@
         if (markers[id]) {
           markers[id]
             .setLatLng([latitude, longitude])
-            .bindPopup(`ID: ${id}`)
+            .bindPopup(name || id)
             .openPopup();
         } else {
           markers[id] = L.marker([latitude, longitude])
             .addTo(map)
-            .bindPopup(`ID: ${id}`)
+            .bindPopup(name || id)
             .openPopup();
         }
       });
